@@ -22,6 +22,7 @@ echo "EXIT">>Rayman.conf
 echo "">>Rayman.conf
 echo ":INSTALL">>Rayman.conf
 echo "D:">>Rayman.conf
+echo "IF NOT EXIST INSTALL.BAT CD RAYMAN">>Rayman.conf
 echo "@INSTALL">>Rayman.conf
 echo "EXIT">>Rayman.conf
 
