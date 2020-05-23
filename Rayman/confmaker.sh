@@ -17,13 +17,13 @@ echo "">>Rayman.conf
 echo "@echo off">>Rayman.conf
 echo "C:">>Rayman.conf
 echo "IF NOT EXIST "C:\\RAYMAN.BAT" GOTO INSTALL">>Rayman.conf
-echo "@RAYMAN">>Rayman.conf
+echo "RAYMAN">>Rayman.conf
 echo "EXIT">>Rayman.conf
 echo "">>Rayman.conf
 echo ":INSTALL">>Rayman.conf
 echo "D:">>Rayman.conf
 echo "IF NOT EXIST INSTALL.BAT CD RAYMAN">>Rayman.conf
-echo "@INSTALL">>Rayman.conf
+echo "INSTALL">>Rayman.conf
 echo "EXIT">>Rayman.conf
 
 echo "Please install Rayman from image"
