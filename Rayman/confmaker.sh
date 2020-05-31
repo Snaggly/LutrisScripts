@@ -1,32 +1,34 @@
-#!/bin/bash
-file=$(find . -type f -name "*.cue")
+#!/bin/sh
+file="$(find . -type f -name '*.cue' -print -quit)"
 
-if [ ! -f $file ]
+if [ -z "$file" ]
 then
-    echo "Could not find file by extension!"
-    echo "Please enter manually your cue filename to be used in autoexec"
-    read file
+    echo 'Could not find file by extension!'
+    echo 'Please enter manually your cue filename to be used in autoexec'
+    printf '%s' 'Filename: '; IFS='' read -r file
 fi
 
-echo $file
-echo "Preparing autoexc"
-echo "">>Rayman.conf
-echo "mount C .">>Rayman.conf
-echo "imgmount D \"$file\" -t iso">>Rayman.conf
-echo "">>Rayman.conf
-echo "@echo off">>Rayman.conf
-echo "C:">>Rayman.conf
-echo "IF NOT EXIST "C:\\RAYMAN.BAT" GOTO INSTALL">>Rayman.conf
-echo "RAYMAN">>Rayman.conf
-echo "EXIT">>Rayman.conf
-echo "">>Rayman.conf
-echo ":INSTALL">>Rayman.conf
-echo "D:">>Rayman.conf
-echo "IF NOT EXIST INSTALL.BAT CD RAYMAN">>Rayman.conf
-echo "INSTALL">>Rayman.conf
-echo "EXIT">>Rayman.conf
+printf '%s\n' "$file"
+echo 'Preparing autoexc'
+cat >>Rayman.conf <<EOF
 
-echo "Please install Rayman from image"
-echo "Be sure to use Sound autodetect for SFX"
-echo "Also keep default install path!"
+mount C .
+imgmount D "$file" -t iso
+
+@echo off
+C:
+IF NOT EXIST C:\RAYMAN.BAT GOTO INSTALL
+RAYMAN
+EXIT
+
+:INSTALL
+D:
+IF NOT EXIST INSTALL.BAT CD RAYMAN
+INSTALL
+EXIT
+EOF
+
+echo 'Please install Rayman from image'
+echo 'Be sure to use Sound autodetect for SFX'
+echo 'Also keep default install path!'
 ./dosbox -noconsole -conf Rayman.conf
